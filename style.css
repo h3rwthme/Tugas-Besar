@@ -31,6 +31,44 @@ h1, h2, h3, h4 {
     text-transform: uppercase;
 }
 
+/* ============================================================
+   BIO SECTION
+   ============================================================ */
+
+.bio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bio-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px dashed rgba(0,0,0,0.2);
+    padding-bottom: 5px;
+}
+
+.bio-label {
+    font-weight: 600;
+    min-width: 40%;
+}
+
+.bio-value {
+    text-align: right;
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+    .bio-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bio-value {
+        text-align: left;
+    }
+}
 
 /* ============================================================
    COVER SECTION — Animations
