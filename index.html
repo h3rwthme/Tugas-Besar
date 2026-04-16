@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Farkhan Abdilah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button class="mobile-menu-btn" id="mobileBtn">☰</button>
+
+    <nav class="side-nav" id="navMenu">
+        <a href="#cover" data-tooltip="Cover" class="active-link"></a>
+        <a href="#about" data-tooltip="About Me"></a>
+        <a href="#family" data-tooltip="My Family"></a>
+        <a href="#friends" data-tooltip="My Friends"></a>
+        <a href="#hobbies" data-tooltip="Hobbies"></a>
+        <a href="#projects" data-tooltip="Projects"></a>
+        <a href="#contact" data-tooltip="Contact"></a>
+    </nav>
+
+    <!-- MAIN KOSONG (DIISI OTOMATIS) -->
+    <main id="main-content"></main>
+
+    <script>
+        // ================= LOAD SECTION =================
+        const sectionList = [
+            "cover",
+            "about",
+            "family",
+            "friends",
+            "hobbies",
+            "projects",
+            "contact"
+        ];
+
+        const main = document.getElementById("main-content");
+
+        async function loadSections() {
+            for (let sec of sectionList) {
+                const res = await fetch(`sections/${sec}.html`);
+                const html = await res.text();
+                main.innerHTML += html;
+            }
+
+            initAfterLoad();
+        }
+
+        loadSections();
+
+        // ================= INIT SETELAH LOAD =================
+        function initAfterLoad() {
+
+    // ── Mobile menu ──
+    const mobileBtn = document.getElementById('mobileBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.side-nav a');
+
+    mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('menu-open');
+        if (navMenu.classList.contains('menu-open')) {
+            mobileBtn.innerHTML = '✕';
+            mobileBtn.style.background = 'var(--red-scrapbook)';
+        } else {
+            mobileBtn.innerHTML = '☰';
+            mobileBtn.style.background = 'var(--text-dark)';
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('menu-open');
+            mobileBtn.innerHTML = '☰';
+            mobileBtn.style.background = 'var(--text-dark)';
+        });
+    });
+
+    // ── Observer ──
+    const sections = document.querySelectorAll('section');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => link.classList.remove('active-link'));
+                const activeLink = document.querySelector(`.side-nav a[href="#${id}"]`);
+                if (activeLink) activeLink.classList.add('active-link');
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // 🔥 TARUH DI SINI (PALING BAWAH)
+    document.body.classList.add('loaded');
+}
+    </script>
+
+</body>
+</html>
