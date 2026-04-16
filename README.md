@@ -65,7 +65,8 @@ Selain itu, website ini juga menggunakan konsep **modular HTML (multi-section)**
 
 * Instagram: https://instagram.com/h3rwthme
 * GitHub: https://github.com/h3rwthme
-* LinkedIn: https://linkedin.com/in/farkhanabdilah
+* LinkedIn: www.linkedin.com/in/farkhan-abdilah
+
 
 ---
 
